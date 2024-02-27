@@ -23,6 +23,15 @@ class Rdv
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $status_rdv = null;
 
+    #[ORM\ManyToOne(inversedBy: 'employer')]
+    private ?Employer $employer = null;
+
+    #[ORM\ManyToOne(inversedBy: 'rdv')]
+    private ?Societe $societe = null;
+
+    #[ORM\ManyToOne(inversedBy: 'rdv')]
+    private ?Animal $animal = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +69,42 @@ class Rdv
     public function setStatusRdv(?string $status_rdv): static
     {
         $this->status_rdv = $status_rdv;
+
+        return $this;
+    }
+
+    public function getEmployer(): ?Employer
+    {
+        return $this->employer;
+    }
+
+    public function setEmployer(?Employer $employer): static
+    {
+        $this->employer = $employer;
+
+        return $this;
+    }
+
+    public function getSociete(): ?Societe
+    {
+        return $this->societe;
+    }
+
+    public function setSociete(?Societe $societe): static
+    {
+        $this->societe = $societe;
+
+        return $this;
+    }
+
+    public function getAnimal(): ?Animal
+    {
+        return $this->animal;
+    }
+
+    public function setAnimal(?Animal $animal): static
+    {
+        $this->animal = $animal;
 
         return $this;
     }

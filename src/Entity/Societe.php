@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SocieteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -75,6 +77,22 @@ class Societe implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 10)]
     private ?string $droit_utilisateur_societe = null;
+
+    #[ORM\OneToMany(targetEntity: Ajouter::class, mappedBy: 'societe')]
+    private Collection $ajouter;
+
+    #[ORM\OneToMany(targetEntity: Rdv::class, mappedBy: 'societe')]
+    private Collection $rdv;
+
+    #[ORM\OneToMany(targetEntity: Soigner::class, mappedBy: 'societe')]
+    private Collection $soigner;
+
+    public function __construct()
+    {
+        $this->ajouter = new ArrayCollection();
+        $this->rdv = new ArrayCollection();
+        $this->soigner = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -327,6 +345,96 @@ class Societe implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDroitUtilisateurSociete(string $droit_utilisateur_societe): static
     {
         $this->droit_utilisateur_societe = $droit_utilisateur_societe;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ajouter>
+     */
+    public function getAjouter(): Collection
+    {
+        return $this->ajouter;
+    }
+
+    public function addAjouter(Ajouter $ajouter): static
+    {
+        if (!$this->ajouter->contains($ajouter)) {
+            $this->ajouter->add($ajouter);
+            $ajouter->setSociete($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAjouter(Ajouter $ajouter): static
+    {
+        if ($this->ajouter->removeElement($ajouter)) {
+            // set the owning side to null (unless already changed)
+            if ($ajouter->getSociete() === $this) {
+                $ajouter->setSociete(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rdv>
+     */
+    public function getRdv(): Collection
+    {
+        return $this->rdv;
+    }
+
+    public function addRdv(Rdv $rdv): static
+    {
+        if (!$this->rdv->contains($rdv)) {
+            $this->rdv->add($rdv);
+            $rdv->setSociete($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRdv(Rdv $rdv): static
+    {
+        if ($this->rdv->removeElement($rdv)) {
+            // set the owning side to null (unless already changed)
+            if ($rdv->getSociete() === $this) {
+                $rdv->setSociete(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Soigner>
+     */
+    public function getSoigner(): Collection
+    {
+        return $this->soigner;
+    }
+
+    public function addSoigner(Soigner $soigner): static
+    {
+        if (!$this->soigner->contains($soigner)) {
+            $this->soigner->add($soigner);
+            $soigner->setSociete($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSoigner(Soigner $soigner): static
+    {
+        if ($this->soigner->removeElement($soigner)) {
+            // set the owning side to null (unless already changed)
+            if ($soigner->getSociete() === $this) {
+                $soigner->setSociete(null);
+            }
+        }
 
         return $this;
     }

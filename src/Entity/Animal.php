@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AnimalRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,18 @@ class Animal
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $images_animal = null;
+
+    #[ORM\OneToMany(targetEntity: Rdv::class, mappedBy: 'animal')]
+    private Collection $rdv;
+
+    #[ORM\OneToMany(targetEntity: Soigner::class, mappedBy: 'animal')]
+    private Collection $soigner;
+
+    public function __construct()
+    {
+        $this->rdv = new ArrayCollection();
+        $this->soigner = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +104,66 @@ class Animal
     public function setImagesAnimal(?string $images_animal): static
     {
         $this->images_animal = $images_animal;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rdv>
+     */
+    public function getRdv(): Collection
+    {
+        return $this->rdv;
+    }
+
+    public function addRdv(Rdv $rdv): static
+    {
+        if (!$this->rdv->contains($rdv)) {
+            $this->rdv->add($rdv);
+            $rdv->setAnimal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRdv(Rdv $rdv): static
+    {
+        if ($this->rdv->removeElement($rdv)) {
+            // set the owning side to null (unless already changed)
+            if ($rdv->getAnimal() === $this) {
+                $rdv->setAnimal(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Soigner>
+     */
+    public function getSoigner(): Collection
+    {
+        return $this->soigner;
+    }
+
+    public function addSoigner(Soigner $soigner): static
+    {
+        if (!$this->soigner->contains($soigner)) {
+            $this->soigner->add($soigner);
+            $soigner->setAnimal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSoigner(Soigner $soigner): static
+    {
+        if ($this->soigner->removeElement($soigner)) {
+            // set the owning side to null (unless already changed)
+            if ($soigner->getAnimal() === $this) {
+                $soigner->setAnimal(null);
+            }
+        }
 
         return $this;
     }
