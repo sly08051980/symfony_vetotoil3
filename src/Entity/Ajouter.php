@@ -41,6 +41,9 @@ class Ajouter
     #[ORM\ManyToOne(inversedBy: 'ajouters')]
     private ?Employer $employer = null;
 
+    #[ORM\ManyToOne(inversedBy: 'ajouters')]
+    private ?Societe $societe = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -150,6 +153,18 @@ class Ajouter
     public function setEmployer(?Employer $employer): static
     {
         $this->employer = $employer;
+
+        return $this;
+    }
+
+    public function getSociete(): ?Societe
+    {
+        return $this->societe;
+    }
+
+    public function setSociete(?Societe $societe): static
+    {
+        $this->societe = $societe;
 
         return $this;
     }

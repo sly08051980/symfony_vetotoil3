@@ -37,6 +37,9 @@ class Soigner
     #[ORM\ManyToOne(inversedBy: 'soigners')]
     private ?Employer $employer = null;
 
+    #[ORM\ManyToOne(inversedBy: 'soigners')]
+    private ?Societe $societe = null;
+
 
 
     public function __construct()
@@ -159,6 +162,18 @@ class Soigner
     public function setEmployer(?Employer $employer): static
     {
         $this->employer = $employer;
+
+        return $this;
+    }
+
+    public function getSociete(): ?Societe
+    {
+        return $this->societe;
+    }
+
+    public function setSociete(?Societe $societe): static
+    {
+        $this->societe = $societe;
 
         return $this;
     }
