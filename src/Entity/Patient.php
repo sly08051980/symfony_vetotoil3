@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PatientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -60,6 +62,22 @@ class Patient implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 10)]
     private ?string $droit_utilisateur_patient = null;
+
+    #[ORM\OneToMany(targetEntity: Animal::class, mappedBy: 'patient')]
+    private Collection $animals;
+
+    #[ORM\OneToMany(targetEntity: Soigner::class, mappedBy: 'patient')]
+    private Collection $soigners;
+
+    #[ORM\OneToMany(targetEntity: Rdv::class, mappedBy: 'patient')]
+    private Collection $rdvs;
+
+    public function __construct()
+    {
+        $this->animals = new ArrayCollection();
+        $this->soigners = new ArrayCollection();
+        $this->rdvs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -252,6 +270,96 @@ class Patient implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDroitUtilisateurPatient(string $droit_utilisateur_patient): static
     {
         $this->droit_utilisateur_patient = $droit_utilisateur_patient;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Animal>
+     */
+    public function getAnimals(): Collection
+    {
+        return $this->animals;
+    }
+
+    public function addAnimal(Animal $animal): static
+    {
+        if (!$this->animals->contains($animal)) {
+            $this->animals->add($animal);
+            $animal->setPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnimal(Animal $animal): static
+    {
+        if ($this->animals->removeElement($animal)) {
+            // set the owning side to null (unless already changed)
+            if ($animal->getPatient() === $this) {
+                $animal->setPatient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Soigner>
+     */
+    public function getSoigners(): Collection
+    {
+        return $this->soigners;
+    }
+
+    public function addSoigner(Soigner $soigner): static
+    {
+        if (!$this->soigners->contains($soigner)) {
+            $this->soigners->add($soigner);
+            $soigner->setPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSoigner(Soigner $soigner): static
+    {
+        if ($this->soigners->removeElement($soigner)) {
+            // set the owning side to null (unless already changed)
+            if ($soigner->getPatient() === $this) {
+                $soigner->setPatient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rdv>
+     */
+    public function getRdvs(): Collection
+    {
+        return $this->rdvs;
+    }
+
+    public function addRdv(Rdv $rdv): static
+    {
+        if (!$this->rdvs->contains($rdv)) {
+            $this->rdvs->add($rdv);
+            $rdv->setPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRdv(Rdv $rdv): static
+    {
+        if ($this->rdvs->removeElement($rdv)) {
+            // set the owning side to null (unless already changed)
+            if ($rdv->getPatient() === $this) {
+                $rdv->setPatient(null);
+            }
+        }
 
         return $this;
     }
