@@ -38,6 +38,9 @@ class Ajouter
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $fin_repas = null;
 
+    #[ORM\ManyToOne(inversedBy: 'ajouters')]
+    private ?Employer $employer = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +138,18 @@ class Ajouter
     public function setFinRepas(?\DateTimeInterface $fin_repas): static
     {
         $this->fin_repas = $fin_repas;
+
+        return $this;
+    }
+
+    public function getEmployer(): ?Employer
+    {
+        return $this->employer;
+    }
+
+    public function setEmployer(?Employer $employer): static
+    {
+        $this->employer = $employer;
 
         return $this;
     }
