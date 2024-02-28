@@ -37,7 +37,17 @@
             </ul>
             <ul class='navbar-nav mb-2 mb-lg-0'>
                 <li class="nav-item">
-                    <img src="{{ asset('img/connexion1.png') }}" class="img-fluid" alt="vetotoil connexion">
+               {% if app.user %}
+    {% set userRoles = app.user.getRoles() %}
+    {% if 'ROLE_ADMIN' in userRoles or 'ROLE_SOCIETE' in userRoles or 'ROLE_PATIENT' in userRoles or 'ROLE_EMPLOYER' in userRoles %}
+        <a href="{{ path('app_loggin') }}"><img src="{{ asset('img/deconnexion1.png') }}" class="img-fluid" alt="vetotoil connexion"></a>
+    {% else %}
+        <a href="{{ path('app_logout') }}"><img src="{{ asset('img/connexion1.png') }}" class="img-fluid" alt="vetotoil connexion"></a>
+    {% endif %}
+{% else %}
+    <a href="{{ path('app_loggin') }}"><img src="{{ asset('img/deconnexion1.png') }}" class="img-fluid" alt="vetotoil connexion"></a>
+{% endif %}
+                    
                 </li>
             </ul>
         </div>
