@@ -63,8 +63,7 @@ class Employer implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_creation_employer = null;
 
-    #[ORM\Column(length: 10)]
-    private ?string $droit_utilisateur_employer = null;
+   
 
     #[ORM\OneToMany(targetEntity: Rdv::class, mappedBy: 'employer')]
     private Collection $rdvs;
@@ -277,17 +276,7 @@ class Employer implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getDroitUtilisateurEmployer(): ?string
-    {
-        return $this->droit_utilisateur_employer;
-    }
-
-    public function setDroitUtilisateurEmployer(string $droit_utilisateur_employer): static
-    {
-        $this->droit_utilisateur_employer = $droit_utilisateur_employer;
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection<int, Rdv>

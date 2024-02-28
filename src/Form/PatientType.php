@@ -61,7 +61,6 @@ class PatientType extends AbstractType
                 // 'disabled' => true, 
             ])
             ->add('date_fin_patient')
-            ->add('droit_utilisateur_patient')
             ->add('submit', SubmitType::class, [
                 'label' => 'Valider',
                 'attr' => ['id' => 'save-button', 'class' => 'btn btn-lg btn-primary'] 

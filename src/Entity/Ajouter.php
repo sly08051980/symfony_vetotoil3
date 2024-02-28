@@ -29,8 +29,7 @@ class Ajouter
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_fin_vacances = null;
 
-    #[ORM\Column(length: 10, nullable: true)]
-    private ?string $droit_utilisateur = null;
+
 
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $debut_repas = null;
@@ -109,17 +108,7 @@ class Ajouter
         return $this;
     }
 
-    public function getDroitUtilisateur(): ?string
-    {
-        return $this->droit_utilisateur;
-    }
 
-    public function setDroitUtilisateur(?string $droit_utilisateur): static
-    {
-        $this->droit_utilisateur = $droit_utilisateur;
-
-        return $this;
-    }
 
     public function getDebutRepas(): ?\DateTimeInterface
     {

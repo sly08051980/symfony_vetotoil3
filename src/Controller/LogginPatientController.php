@@ -9,7 +9,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LogginPatientController extends AbstractController
 {
-    #[Route('/patient/loggin', name: 'app_patient_loggin')]
+    #[Route('/patient/loggin', name: 'app_loggin')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();

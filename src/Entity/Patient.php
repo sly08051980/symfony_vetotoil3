@@ -60,8 +60,7 @@ class Patient implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_fin_patient = null;
 
-    #[ORM\Column(length: 10)]
-    private ?string $droit_utilisateur_patient = null;
+    
 
     #[ORM\OneToMany(targetEntity: Animal::class, mappedBy: 'patient')]
     private Collection $animals;
@@ -262,17 +261,7 @@ class Patient implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getDroitUtilisateurPatient(): ?string
-    {
-        return $this->droit_utilisateur_patient;
-    }
 
-    public function setDroitUtilisateurPatient(string $droit_utilisateur_patient): static
-    {
-        $this->droit_utilisateur_patient = $droit_utilisateur_patient;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Animal>

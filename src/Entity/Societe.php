@@ -75,8 +75,7 @@ class Societe implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_validation_societe = null;
 
-    #[ORM\Column(length: 10)]
-    private ?string $droit_utilisateur_societe = null;
+   
 
     #[ORM\OneToMany(targetEntity: Ajouter::class, mappedBy: 'societe')]
     private Collection $ajouters;
@@ -337,17 +336,7 @@ class Societe implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getDroitUtilisateurSociete(): ?string
-    {
-        return $this->droit_utilisateur_societe;
-    }
-
-    public function setDroitUtilisateurSociete(string $droit_utilisateur_societe): static
-    {
-        $this->droit_utilisateur_societe = $droit_utilisateur_societe;
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection<int, Ajouter>

@@ -1,0 +1,169 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription Professionnel
+{% endblock %}
+
+{% block body %}
+	<div class="container " id="inscriptionPro">
+		<div class="row pt-3">
+			<div class="card shadow-lg p-3 mb-5 bg-body rounded border-5 ">
+				<div class="col-12 justify-content-center py-5">
+					<h1 class="text-center">Inscription Pour les Professionnels</h1>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row justify-content-center">
+			{{form_start(form)}}
+			<div class="card shadow-lg p-3 mb-5 bg-body rounded border-5 ">
+
+				<div class="row">
+
+
+					<div class="col-lg-4">
+						<div class="mb-3">
+							{{form_row(form.siret,{'label_attr': {'class': 'label-large'}})}}
+							<button type="button" class="btn btn-custom rounded-pill" id="button">Rechercher</button>
+
+						</div>
+						<div class="mb-3">
+							{{form_row(form.nom_societe,{'label_attr': {'class': 'label-large'}})}}
+
+						</div>
+						<div class="mb-3">
+							{{ form_label(form.profession_societe, 'Profession', {'label_attr': {'class': 'form-label'}}) }}
+							{{ form_widget(form.profession_societe, {'attr': {'class': 'form-select'}, 'id': 'profession'}) }}
+							{{ form_errors(form.profession_societe) }}
+						</div>
+
+						<div class="mb-3">
+							{{form_row(form.nom_dirigeant,{'label_attr': {'class': 'label-large'}})}}
+						</div>
+
+					</div>
+
+
+					<div class="col-lg-4">
+
+						<div class="mb-3">
+							{{form_row(form.adresse_societe,{'label_attr': {'class': 'label-large'}})}}
+
+						</div>
+						<div class="mb-3">
+							{{form_row(form.complement_adresse_societe,{'label_attr': {'class': 'label-large'}})}}
+
+						</div>
+						<div class="mb-3">
+							{{form_row(form.code_postal_societe,{'label_attr': {'class': 'label-large'}})}}
+
+
+						</div>
+						<div class="mb-3">
+							{{form_row(form.ville_societe,{'label_attr': {'class': 'label-large'}})}}
+
+						</div>
+
+
+					</div>
+					<div class="col-lg-4">
+						<div class="mb-3">
+							{{form_row(form.telephone_societe,{'label_attr': {'class': 'label-large'}})}}
+
+						</div>
+						<div class="mb-3">
+							{{form_row(form.telephone_dirigeant,{'label_attr': {'class': 'label-large'}})}}
+
+						</div>
+						<div class="mb-3">
+							{{form_row(form.email,{'label_attr': {'class': 'label-large'}})}}
+
+						</div>
+						<div class="mb-3">
+
+							{{form_row(form.password,{'label_attr': {'class': 'label-large'}})}}
+
+						</div>
+						{{ form_row(form.date_creation_societe, {'label': false, 'attr': {'hidden': 'true'}}) }}
+						{{ form_row(form.date_resiliation_societe, {'label': false, 'attr': {'hidden': 'true'}}) }}
+						<ul id="ulVisible" class="d-none">
+							<div class="row">
+								<div class="col-4">
+									<img src="./Content/img/valider.png" class="img-thumbnail d-none" id="chiffre" width="25%">
+
+								</div>
+								<div class="col-8">
+									<li class="text-font">Mettre des lettres et de chiffres</li>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-4">
+									<img src="./Content/img/valider.png" class="img-thumbnail d-none" id="majuscule" width="25%">
+
+								</div>
+								<div class="col-8">
+									<li class="text-font">Une ou plusieurs Majuscule</li>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-4">
+									<img src="./Content/img/valider.png" class="img-thumbnail d-none" id="caractere" width="25%">
+
+								</div>
+								<div class="col-8">
+									<li class="text-font">8 Caractères minimum</li>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-4">
+									<img src="./Content/img/valider.png" class="img-thumbnail d-none" id="special" width="25%">
+
+								</div>
+								<div class="col-8">
+									<li class="text-font">1 Caractere special</li>
+								</div>
+							</div>
+
+						</ul>
+						<div class="mb-3">
+							<label for="repassword" class="form-label">Confirmer le mot de passe</label>
+							<input type="password" class="form-control" id="repassword" required>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- Bouton au bas du milieu -->
+			<div class="row justify-content-center pt-5">
+
+				<div class="card shadow-lg p-3 mb-5 bg-body rounded border-5 ">
+					<div class="mb-3">
+						<label for="file">Choisir une image qui sera utilisé dans les recheche utilisateur</label>
+					</br>
+					<input type="file" name="file" id="image">
+				</div>
+				<span id="passwordHelpInline" class="form-text">
+					En cochant la case ci-dessous, je confirme avoir lu, compris et accepté l'ensemble des dispositions
+										                    relatives à l'utilisation d'images sur la plateforme Vetotoil.
+				</span>
+				<div class="form-check">
+
+					<input class="form-check-input" type="checkbox" value="checkbox" id="checkbox">
+					<label class="form-check-label" for="flexCheckDefault">
+						<span id="passwordHelpInline" class="form-text">
+							J'accepte les Conditions Générales d'Utilisation de Vetotoil.
+						</span>
+					</label>
+				</div>
+				<div class="col-lg-8 text-center">
+					{{ form_widget(form.submit, {'attr': {'class': 'btn btn-lg btn-primary'}}) }}
+
+				</div>
+			</div>
+			{{ form_end(form) }}
+		</div>
+	</div>
+
+
+</div>{% endblock %}

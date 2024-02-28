@@ -13,13 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class PatientController extends AbstractController
 {
-    #[Route('/home', name: 'app_home')]
-    public function index(): Response
-    {
-        return $this->render('patient/home.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
-    }
+
 
     #[Route('/patient', name: 'app_patient')]
     public function inscriptionPatient(UserPasswordHasherInterface $passwordHasher,Request $request,EntityManagerInterface $entityManager): Response
