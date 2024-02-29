@@ -38,6 +38,30 @@ $patient->setRoles(['ROLE_PATIENT']);
             'form' => $form->createView(), 
         ]);
     }
+    #[Route('/patient/profil', name: 'app_patient_profil')]
+    public function profilPatient(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $patientId = $this->getUser()->getId();
+        $patient = $entityManager->getRepository(Patient::class)->find($patientId);
+
+        if (!$patient) {
+            throw $this->createNotFoundException('Patient non trouvé');
+        }
+       
+        $form = $this->createForm(PatientType::class, $patient);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+           
+            return $this->redirectToRoute('/');
+        }
+
+        return $this->render('patient/profil.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 
 
 }

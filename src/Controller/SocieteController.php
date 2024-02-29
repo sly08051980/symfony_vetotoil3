@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SocieteController extends AbstractController
@@ -42,11 +43,30 @@ class SocieteController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
        
         $lastUsername = $authenticationUtils->getLastUsername();
-
+        if ($this->getUser()) {
+            return $this->redirectToRoute('/');
+        }
         return $this->render('societe/societelogin.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
             
         ]);
+    }
+    
+    public function secutitePatient(Security $security)
+    {
+        $user = $security->getUser();
+
+      
+        if ($user instanceof \App\Entity\Patient) {
+         
+            $nom = $user->getNomPatient();
+            $prenom = $user->getPrenomPatient();
+            $email = $user->getEmail();
+            
+        }
+        
+
+
     }
 }
