@@ -1,58 +1,45 @@
-
-
 <div class="pb-5">
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="navbar">
-    <div class="container-fluid">
-        <div class="d-flex align-items-center">
-            <img src="{{ asset('img/logo.png') }}" alt="logo-vetotoil" height="30px" width="30px" class="me-3">
-            <a class="navbar-brand" href="#">VETOTOIL</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="navbar">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center">
+                <img src="{{ asset('img/logo.png') }}" alt="logo-vetotoil" height="30px" width="30px" class="me-3">
+                <a class="navbar-brand" href="#">VETOTOIL</a>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 mx-auto">
+                    <li class='nav-item'>
+                        <a href="{{ path('app_home') }}">Accueil</a>
+                    </li>
+                    <li class='nav-item'>
+                        <a href="{{ path('app_loggin') }}">Connexion</a>
+                    </li>
+                    <li class='nav-item'>
+                        <a href="{{ path('app_patient') }}">Inscription</a>
+                    </li>
+                    <li class='nav-item'>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+                <ul class='navbar-nav mb-2 mb-lg-0'>
+                    <li class="nav-item">
+                        {% if app.user %}
+                            {% set userRoles = app.user.getRoles() %}
+                            {% if 'ROLE_ADMIN' in userRoles or 'ROLE_SOCIETE' in userRoles or 'ROLE_PATIENT' in userRoles or 'ROLE_EMPLOYER' in userRoles %}
+                                <a href="{{ path('app_logout') }}"><img src="{{ asset('img/deconnexion1.png') }}" class="img-fluid" alt="vetotoil connexion"></a>
+                            {% else %}
+                                <a href="{{ path('app_loggin') }}"><img src="{{ asset('img/connexion1.png') }}" class="img-fluid" alt="vetotoil connexion"></a>
+                            {% endif %}
+                        {% else %}
+                            <a href="{{ path('app_loggin') }}"><img src="{{ asset('img/connexion1.png') }}" class="img-fluid" alt="vetotoil connexion"></a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
         </div>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 mx-auto">
-            <ul>
-                <li class='nav-item'>
-                    <a href="{{ path('app_home') }}">Accueil</a>
-                </li>
-                </ul>
-                <ul>
-               <li class='nav-item'>
-                    <a href="{{ path('app_loggin') }}">Connexion</a>
-                </li>
-                </ul>
-                <ul>
-                  <li class='nav-item'>
-                    <a href="{{ path('app_patient') }}">Inscription</a>
-                </li>
-                </ul>
-                <ul>
-                 <li class='nav-item'>
-                    <a href="#">Contact</a>
-                </li>
-                </ul>
-            </ul>
-            <ul class='navbar-nav mb-2 mb-lg-0'>
-                <li class="nav-item">
-               {% if app.user %}
-    {% set userRoles = app.user.getRoles() %}
-    {% if 'ROLE_ADMIN' in userRoles or 'ROLE_SOCIETE' in userRoles or 'ROLE_PATIENT' in userRoles or 'ROLE_EMPLOYER' in userRoles %}
-        <a href="{{ path('app_loggin') }}"><img src="{{ asset('img/deconnexion1.png') }}" class="img-fluid" alt="vetotoil connexion"></a>
-    {% else %}
-        <a href="{{ path('app_logout') }}"><img src="{{ asset('img/connexion1.png') }}" class="img-fluid" alt="vetotoil connexion"></a>
-    {% endif %}
-{% else %}
-    <a href="{{ path('app_loggin') }}"><img src="{{ asset('img/deconnexion1.png') }}" class="img-fluid" alt="vetotoil connexion"></a>
-{% endif %}
-                    
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
- {# <div class="espacemain"></div> #}
-
+    </nav>
 </div>

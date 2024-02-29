@@ -57,6 +57,7 @@ class PatientType extends AbstractType
             ])
             ->add('date_creation_patient', DateType::class, [
                 'label' => 'Date de création',
+                'widget' => 'single_text',
                 // 'data' => new \DateTime(), 
                 // 'disabled' => true, 
             ])
